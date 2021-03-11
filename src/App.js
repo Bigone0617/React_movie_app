@@ -5,7 +5,7 @@ function Food({fav}) {
 function App() {
   return (
     <div className="App">
-      <h1>aaa</h1>
+      <h1>aaa123</h1>
       <Food fav="kimchi"/>
     </div>
   );
