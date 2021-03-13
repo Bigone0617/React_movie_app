@@ -1,47 +1,45 @@
-import PropTypes from "prop-types";
+import React from "react";
 
-const itemList = [
-  {
-    id : 1,
-    name : "kimchi"
-  },
-  {
-    id : 2,
-    name : "ramen"
-  },
-  {
-    id : 3,
-    name : "bulgogi"
-  },
-  {
-    id : 4,
-    name : "pizza"
-  },
-  {
-    id : 5,
-    name : "coffee"
+class App extends React.Component{
+
+  constructor(props){
+    super(props);
   }
-];
 
-function Food({name}) {
-  return <h1>I like {name}!</h1>
-};
+  state = {
+    count : 0
+  };
 
-// 필수값 체크, 형식체크
-Food.propTypes = {
-  name: PropTypes.string.isRequired
+  //functions
+  add = () => {
+    console.log("plus");
+    this.setState(current => ({
+      count : current.count + 1
+    }))
+  };
+  minus = () => {
+    this.setState(current => ({
+      count : current.count - 1
+    }))
+  };
+
+  componentDidMount(){
+    console.log("did mount");
+  }
+  componentDidUpdate(){
+    console.log("update!!");
+  }
+
+  render() {
+    console.log("render function")
+    return (
+      <div>
+        <h1>this count is : {this.state.count}</h1>
+        <button onClick={this.add}>Add</button>
+        <button onClick={this.minus}>Minus</button>
+      </div>
+    );
+  }
 }
-
-function App() {
-  return (
-    <div className="App">
-      {
-        itemList.map(item => {
-          return <Food key={item.id} name={item.name}/>
-        })
-      }
-    </div>
-  );
-};
 
 export default App;
