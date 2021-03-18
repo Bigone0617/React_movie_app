@@ -3,10 +3,18 @@ import React from "react";
 import "./Detail.css";
 
 class Detail extends React.Component{
+    state = {
+        movie:{}
+    }
+
     getMovieDetail = async(location) => {
-        console.log(location);
-        const test = await axios.get(`https://yts.mx/api/v2/movie_details.json?movie_id=${location.state.id}&with_images=true`);
-        console.log(test);
+        const {
+            data : {
+                data : {movie}
+            }
+        } = await axios.get(`https://yts.mx/api/v2/movie_details.json?movie_id=${location.state.id}&with_images=true`);
+
+        this.setState({movie});
     }
 
     componentDidMount(){
@@ -22,20 +30,36 @@ class Detail extends React.Component{
 
     render() {
         const { location } = this.props;
+        const {movie} = this.state;
+        
         return (
             <div className="Detail_main">
-                <div 
-                    className = "Detail_container"
-                    style = {{
-                        backgroundImage: `url(${location.state.poster})`,
-                        backgroundRepeat: "no-repeat",
-                        backgroundSize: "cover"
-                    }}>
-                    {location.state.title}
-                </div>
-                <div>
-                    <h5>{location.state.summary}</h5>
-                </div>
+                {movie === {} 
+                    ? (<div>Loading...</div>)
+                    : (
+                    <>
+                        <div 
+                            className = "Detail_container"
+                            style = {{
+                                backgroundImage: `url(${movie.large_screenshot_image1})`,
+                                backgroundRepeat: "no-repeat",
+                                backgroundSize: "cover"
+                            }}>
+                            <h1>{location.state.title}</h1>
+                        </div>
+                        <div>
+                            <ul>
+                                {location.state.genres.map((genre, index) => (
+                                    <li key={index}>
+                                        {genre}
+                                    </li>
+                                ))}
+                            </ul>
+                            <h5>{location.state.summary}</h5>
+                        </div>
+                    </>
+                    )
+                }
             </div>
             
         );

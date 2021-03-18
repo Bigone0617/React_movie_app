@@ -2,4 +2,14 @@
     width: 1000px;
     height: 500px;
     margin: 10px;
+    position: relative;
+}
+
+
+.Detail_container h1{
+    position: absolute;
+    font-size: 50px;
+    bottom: 8px;
+    left: 16px;
+    color: ivory;
 }
