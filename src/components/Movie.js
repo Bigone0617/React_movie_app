@@ -8,6 +8,7 @@ function Movie({id, year, title, summary, poster, genres}){
         <Link to={{
             pathname:`/movie/${id}`,
             state: {
+                id: id,
                 year: year,
                 title: title,
                 summary: summary,
